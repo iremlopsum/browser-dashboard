@@ -30,6 +30,14 @@ From the project root:
 - Preview the built app locally with Vite’s preview server:
   - `yarn preview`
 
+### Deployment
+
+The dashboard is deployed to **Firebase Hosting** for the `browser-dashboard-c24ae` project.
+
+- Production deploys are handled automatically by GitHub Actions on pushes to `main` using the workflows under `.github/workflows/firebase-hosting-*.yml`.
+- You can also build and deploy locally (requires the Firebase CLI to be installed and authenticated):
+  - `yarn build:deploy` — runs `yarn build` and then `firebase deploy --only hosting`.
+
 ### Testing
 
 There is currently **no test runner configured**:

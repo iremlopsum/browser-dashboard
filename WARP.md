@@ -11,8 +11,16 @@ This is a Vite + React + TypeScript single-page app managed with Yarn.
 - Build for production (TypeScript build + Vite bundle): `yarn build`
 - Preview production build locally: `yarn preview`
 - Lint TypeScript/JavaScript (ESLint flat config): `yarn lint`
+- Build and deploy to Firebase Hosting locally: `yarn build:deploy` (requires Firebase CLI and access to the `browser-dashboard-c24ae` project).
 
 Tests are not currently configured: there is no test runner or `test` script in `package.json`, and there are no `*.test.ts(x)` or `*.spec.ts(x)` files. To run a single test in the future, add a test runner (e.g. Vitest or Jest) and corresponding scripts first.
+
+## CI & Deployment
+
+- Firebase Hosting is configured via `.firebaserc` and `firebase.json`.
+- GitHub Actions workflows under `.github/workflows/firebase-hosting-*.yml` build the app with Yarn and deploy:
+  - On push to `main`, `firebase-hosting-merge.yml` runs the production build and deploys to the `live` channel.
+  - On pull requests, `firebase-hosting-pull-request.yml` builds the app and deploys a preview channel.
 
 ## High-Level Architecture
 
