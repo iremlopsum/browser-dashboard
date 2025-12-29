@@ -1,6 +1,6 @@
 import EmittifyReact from '@libs/emittify/react'
 
-import type { EventsType, TimeDataType, WeatherDataType, WeatherStateType } from '../../types/core'
+import type { EventsType } from '../../types/core'
 
 const emitter = new EmittifyReact<EventsType>({
   // Cache is used to cache events and provide initial values to new listeners

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'motion/react'
+import { useCallback, useEffect, useState } from 'react'
 import { AlertCircle, ExternalLink, Mail, RefreshCw } from 'lucide-react'
 
 import type {

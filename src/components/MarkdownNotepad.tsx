@@ -1,6 +1,6 @@
+import ReactMarkdown from 'react-markdown'
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import ReactMarkdown from 'react-markdown'
 import { Clock, Edit, Eye, FileText, History, RotateCcw, Save, X } from 'lucide-react'
 
 import type { SavedVersionType } from '../../types/components'

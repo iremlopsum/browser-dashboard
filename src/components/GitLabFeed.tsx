@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
+import { useEffect, useState } from 'react'
 import { AlertCircle, CheckCircle, Clock, GitBranch, GitMerge, User } from 'lucide-react'
 
 import type { MergeRequestType } from '../../types/components'

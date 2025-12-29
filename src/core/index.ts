@@ -1,6 +1,6 @@
 import Events from './events'
-import Firebase from './firebase'
 import Weather from './weather'
+import Firebase from './firebase'
 
 export type { TimeDataType, WeatherDataType, WeatherStateType } from '../../types/core'
 
