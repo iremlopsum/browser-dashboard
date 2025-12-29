@@ -7,6 +7,7 @@ import { KanbanBoard } from './components/KanbanBoard'
 import { SearchWidget } from './components/SearchWidget'
 import { WeatherWidget } from './components/WeatherWidget'
 import { MarkdownNotepad } from './components/MarkdownNotepad'
+import { EmailWidget } from './components/EmailWidget'
 
 import '@core/time-core' // Initialize time service
 
@@ -67,6 +68,15 @@ export default function App() {
             <GitLabFeed />
           </motion.div>
         </div>
+
+        {/* Email Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.5 }}
+          className="mb-6">
+          <EmailWidget />
+        </motion.div>
 
         {/* Bottom Row - Kanban Board */}
         <motion.div
