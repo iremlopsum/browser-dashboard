@@ -44,14 +44,22 @@ export default function App() {
           <SearchWidget />
         </motion.div>
 
-        {/* Top Row - Weather */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          className="mb-6">
-          <WeatherWidget />
-        </motion.div>
+        {/* Top Row - Weather & GitLab */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="mb-6">
+            <WeatherWidget />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}>
+            <GitLabFeed />
+          </motion.div>
+        </div>
 
         {/* Middle Row - Notepad & GitLab */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
@@ -62,21 +70,13 @@ export default function App() {
             <MarkdownNotepad />
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}>
-            <GitLabFeed />
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.5 }}
+            className="mb-6">
+            <EmailWidget />
           </motion.div>
         </div>
-
-        {/* Email Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45, duration: 0.5 }}
-          className="mb-6">
-          <EmailWidget />
-        </motion.div>
 
         {/* Bottom Row - Kanban Board */}
         <motion.div

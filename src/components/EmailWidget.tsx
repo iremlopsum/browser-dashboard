@@ -193,7 +193,7 @@ export function EmailWidget() {
   console.log('emails in EmailWidget:', emails)
 
   return (
-    <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-lg rounded-2xl p-6 border border-gray-700/50 shadow-2xl h-[400px] flex flex-col">
+    <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-lg rounded-2xl p-6 border border-gray-700/50 shadow-2xl h-[600px] flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <Mail className="w-5 h-5 text-blue-400" />

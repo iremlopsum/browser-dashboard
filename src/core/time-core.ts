@@ -118,6 +118,7 @@ class TimeCore {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
+      hour12: false, // Force 24-hour format
       weekday: 'short',
       month: 'short',
       day: 'numeric',
