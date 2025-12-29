@@ -1,15 +1,8 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { Plus, Trash2, CheckSquare } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import { CheckSquare, Plus, Trash2 } from 'lucide-react'
 
-interface Task {
-  id: string
-  title: string
-  description: string
-  status: 'todo' | 'in-progress' | 'done'
-  priority: 'low' | 'medium' | 'high'
-  createdAt: Date
-}
+import type { TaskType } from '../../types/components'
 
 const COLUMNS = [
   { id: 'todo' as const, title: 'To Do', color: 'from-gray-700 to-gray-800' },
@@ -18,7 +11,7 @@ const COLUMNS = [
 ]
 
 export function KanbanBoard() {
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<TaskType[]>([])
   const [newTaskColumn, setNewTaskColumn] = useState<string | null>(null)
   const [newTaskTitle, setNewTaskTitle] = useState('')
 
@@ -30,7 +23,7 @@ export function KanbanBoard() {
       setTasks(parsed.map((t: any) => ({ ...t, createdAt: new Date(t.createdAt) })))
     } else {
       // Initialize with sample tasks
-      const sampleTasks: Task[] = [
+      const sampleTasks: TaskType[] = [
         {
           id: '1',
           title: 'Design new landing page',
@@ -94,11 +87,11 @@ export function KanbanBoard() {
   const addTask = (column: string) => {
     if (!newTaskTitle.trim()) return
 
-    const newTask: Task = {
+    const newTask: TaskType = {
       id: Date.now().toString(),
       title: newTaskTitle,
       description: '',
-      status: column as Task['status'],
+      status: column as TaskType['status'],
       priority: 'medium',
       createdAt: new Date(),
     }
@@ -112,7 +105,7 @@ export function KanbanBoard() {
     setTasks(tasks.filter(t => t.id !== id))
   }
 
-  const moveTask = (taskId: string, newStatus: Task['status']) => {
+  const moveTask = (taskId: string, newStatus: TaskType['status']) => {
     setTasks(tasks.map(t => (t.id === taskId ? { ...t, status: newStatus } : t)))
   }
 
@@ -137,7 +130,7 @@ export function KanbanBoard() {
     e.preventDefault()
   }
 
-  const handleDrop = (e: React.DragEvent, status: Task['status']) => {
+  const handleDrop = (e: React.DragEvent, status: TaskType['status']) => {
     e.preventDefault()
     const taskId = e.dataTransfer.getData('taskId')
     moveTask(taskId, status)

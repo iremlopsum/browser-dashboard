@@ -1,63 +1,33 @@
+import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'motion/react'
-import { useEffect, useState, useCallback } from 'react'
-import { Mail, RefreshCw, AlertCircle, ExternalLink } from 'lucide-react'
+import { AlertCircle, ExternalLink, Mail, RefreshCw } from 'lucide-react'
 
-// Minimal types for Google Identity Services token client
-interface GoogleTokenClientConfig {
-  client_id: string
-  scope: string
-  callback: (tokenResponse: { access_token: string }) => void
-}
-
-interface GoogleTokenClient {
-  requestAccessToken: (options?: { prompt?: 'consent' | 'none' }) => void
-}
+import type {
+  EmailSummaryType,
+  GmailListResponseType,
+  GmailMessageResponseType,
+  GoogleTokenClientConfigType,
+  GoogleTokenClientType,
+} from '../../types/components'
 
 declare global {
   interface Window {
     google?: {
       accounts?: {
         oauth2?: {
-          initTokenClient: (config: GoogleTokenClientConfig) => GoogleTokenClient
+          initTokenClient: (config: GoogleTokenClientConfigType) => GoogleTokenClientType
         }
       }
     }
   }
 }
 
-interface GmailListResponse {
-  messages?: Array<{ id: string; threadId: string }>
-}
-
-interface GmailMessageHeader {
-  name: string
-  value: string
-}
-
-interface GmailMessageResponse {
-  id: string
-  threadId: string
-  snippet?: string
-  payload?: {
-    headers?: GmailMessageHeader[]
-  }
-}
-
-interface EmailSummary {
-  id: string
-  threadId: string
-  subject: string
-  from: string
-  date: string
-  snippet: string
-}
-
 const GMAIL_SCOPE = 'https://www.googleapis.com/auth/gmail.readonly'
 
 export function EmailWidget() {
-  const [tokenClient, setTokenClient] = useState<GoogleTokenClient | null>(null)
+  const [tokenClient, setTokenClient] = useState<GoogleTokenClientType | null>(null)
   const [accessToken, setAccessToken] = useState<string | null>(null)
-  const [emails, setEmails] = useState<EmailSummary[]>([])
+  const [emails, setEmails] = useState<EmailSummaryType[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [initialized, setInitialized] = useState(false)
@@ -83,10 +53,10 @@ export function EmailWidget() {
         throw new Error(`Failed to list messages: ${listRes.status}`)
       }
 
-      const listData: GmailListResponse = await listRes.json()
+      const listData: GmailListResponseType = await listRes.json()
       const messagesMeta = listData.messages ?? []
 
-      const summaries: EmailSummary[] = []
+      const summaries: EmailSummaryType[] = []
 
       for (const meta of messagesMeta) {
         const msgRes = await fetch(
@@ -100,7 +70,7 @@ export function EmailWidget() {
 
         if (!msgRes.ok) continue
 
-        const msgData: GmailMessageResponse = await msgRes.json()
+        const msgData: GmailMessageResponseType = await msgRes.json()
         const headers = msgData.payload?.headers ?? []
 
         const getHeader = (name: string) => headers.find(h => h.name.toLowerCase() === name.toLowerCase())?.value ?? ''

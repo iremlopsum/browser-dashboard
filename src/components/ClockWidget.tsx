@@ -1,7 +1,9 @@
 import { Clock } from 'lucide-react'
 import { motion } from 'motion/react'
+
 import Counter from './Counter'
-import emitter from '@core/events'
+
+import core from '../core'
 
 /**
  * Animated colon separator used between time units in the clock display.
@@ -52,7 +54,7 @@ const COMMON_COUNTER_PROPS = {
  */
 export function ClockWidget() {
   // Subscribe to time updates from the centralized time service
-  const timeData = emitter.useEventListener('time.update', {
+  const timeData = core.events.useEventListener('time.update', {
     date: new Date(),
     hours: 0,
     minutes: 0,

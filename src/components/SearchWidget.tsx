@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { Search, ArrowRight, Clock, TrendingUp } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import { ArrowRight, Clock, Search, TrendingUp } from 'lucide-react'
 
 const SEARCH_ENGINES = [
   { name: 'Google', url: 'https://www.google.com/search?q=', icon: '🔍' },

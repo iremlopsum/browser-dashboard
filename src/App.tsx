@@ -1,13 +1,13 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
-import { useState, useEffect } from 'react'
 
-import { GitLabFeed } from './components/GitLabFeed'
 import { ClockWidget } from './components/ClockWidget'
+import { EmailWidget } from './components/EmailWidget'
+import { GitLabFeed } from './components/GitLabFeed'
 import { KanbanBoard } from './components/KanbanBoard'
+import { MarkdownNotepad } from './components/MarkdownNotepad'
 import { SearchWidget } from './components/SearchWidget'
 import { WeatherWidget } from './components/WeatherWidget'
-import { MarkdownNotepad } from './components/MarkdownNotepad'
-import { EmailWidget } from './components/EmailWidget'
 
 import '@core/time-core' // Initialize time service
 

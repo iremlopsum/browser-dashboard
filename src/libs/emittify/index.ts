@@ -1,14 +1,8 @@
 import fastDeepEqual from 'fast-deep-equal'
 
-export interface DeduplicationConfig<K> {
-  event: K
-  comparison: 'deep' | 'shallow'
-}
+import type { DeduplicationConfigType, OptionsType } from '../../../types/libs'
 
-export interface OptionsType<EventsType extends Record<keyof EventsType, EventsType[keyof EventsType]>> {
-  cachedEvents?: (keyof EventsType)[]
-  deduplicatedEvents?: DeduplicationConfig<keyof EventsType>[]
-}
+export type { DeduplicationConfigType, OptionsType }
 
 class Emitter<EventsType extends Record<keyof EventsType, EventsType[keyof EventsType]>> {
   /**
@@ -46,7 +40,7 @@ class Emitter<EventsType extends Record<keyof EventsType, EventsType[keyof Event
 
     // Initialize deduplication config map
     if (this.options.deduplicatedEvents) {
-      this.options.deduplicatedEvents.forEach(config => {
+      this.options.deduplicatedEvents.forEach((config: DeduplicationConfigType<keyof EventsType>) => {
         this.deduplicationConfig.set(config.event, config.comparison)
       })
     }

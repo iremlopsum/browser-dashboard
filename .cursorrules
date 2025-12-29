@@ -1,0 +1,154 @@
+# Dashboard Project Cursor Rules
+
+## Tech Stack
+
+- **Framework**: React 19 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion (motion/react)
+- **Icons**: lucide-react
+- **Backend**: Firebase
+- **Markdown**: react-markdown
+
+## Code Style & Patterns
+
+### TypeScript
+
+- Use strict TypeScript typing - avoid `any` types
+- Prefer type exports: `export type { ... }`
+- Use interfaces for object shapes, types for unions/intersections
+- Leverage TypeScript's type inference where appropriate
+- Use path aliases: `@libs` for `src/libs`, `@core` for `src/core`
+- **All types and interfaces must end with "Type" suffix** (e.g., `RequestNameType`, `WeatherDataType`)
+- **All types must be located in `./types/` directory**, organized by domain:
+  - `types/api.ts` - API request/response types
+  - `types/core.ts` - Core event system and business logic types
+  - `types/components.ts` - Component-specific types
+  - `types/libs.ts` - Library and utility types
+
+### React Patterns
+
+- Use functional components with hooks
+- Prefer named exports for components: `export function ComponentName()`
+- Use `useState` and `useEffect` appropriately
+- Clean up event listeners in `useEffect` return functions
+- Use React 19 patterns and APIs
+
+### Component Structure
+
+- Components are widget-based, located in `src/components/`
+- Each widget should be self-contained with its own state management
+- Use the core event system (`core.events`) for cross-component communication
+- Components should listen to core events and update accordingly
+
+### Styling Guidelines
+
+- Use Tailwind CSS utility classes exclusively
+- Follow dark theme patterns: `bg-gray-800/80`, `text-gray-300`, `border-gray-700/50`
+- Use backdrop blur effects: `backdrop-blur-lg`
+- Apply rounded corners: `rounded-2xl` for containers, `rounded-lg` for cards
+- Use gradient backgrounds: `bg-gradient-to-br from-gray-800/80 to-gray-900/80`
+- Apply shadows: `shadow-2xl` for depth
+- Use opacity modifiers: `/80`, `/50`, `/30` for layered effects
+
+### Animation Patterns
+
+- Use Framer Motion (`motion/react`) for animations
+- Import from `motion/react`, not `framer-motion`
+- Use `AnimatePresence` for enter/exit animations
+- Apply `whileHover` and `whileTap` for interactive elements
+- Use staggered animations with `transition.delay` for lists
+- Keep animations subtle and performant
+
+### Event System
+
+- Use `core.events.listen()` for subscribing to events
+- Always clean up listeners: `listener.clearListener()`
+- Event types are defined in `types/core.ts` (EventsType interface)
+- Use the emittify pattern for reactive state management
+
+### File Organization
+
+- **Types**: `types/` - All TypeScript types and interfaces (organized by domain)
+- **Components**: `src/components/` - React widget components
+- **Core**: `src/core/` - Business logic, event system, Firebase, weather API
+- **API**: `src/api/` - API request handlers
+- **Utils**: `src/utils/` - Utility functions
+- **Libs**: `src/libs/` - Custom libraries (emittify)
+
+### API & Data Fetching
+
+- API requests go through `src/api/requests.ts`
+- Use the core modules (`core.weather`, `core.firebase`) for data operations
+- Handle loading and error states explicitly
+- Update state through the event system, not direct state updates
+
+### Code Quality
+
+- Follow ESLint configuration (TypeScript ESLint, React Hooks)
+- Use meaningful variable and function names
+- Keep components focused and single-purpose
+- Extract reusable logic into hooks or utility functions
+- Comment complex logic, but prefer self-documenting code
+
+### Firebase Integration
+
+- Firebase configuration in `src/core/firebase.ts`
+- Use Firebase for data persistence and hosting
+- Follow Firebase best practices for security rules
+
+### Import Order
+
+Imports must be ordered by category, and within each category sorted by character line length in ascending order (shortest first).
+
+1. **External libraries** (React, third-party packages like motion, lucide-react, etc.)
+2. **Components** (imports from `src/components/`)
+3. **Internal imports** (core, utils, api, libs - imports from `src/core/`, `src/utils/`, `src/api/`, `src/libs/`)
+4. **Types** (use `import type` when importing only types)
+5. **Assets** (images, SVGs, etc.)
+6. **CSS files** (style imports)
+
+Example:
+
+```typescript
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import { Droplets, Eye, Gauge, Wind } from 'lucide-react'
+
+import { EmailWidget } from '../components/EmailWidget'
+import { WeatherWidget } from '../components/WeatherWidget'
+
+import core from '../core'
+import { getWeatherIcon } from '../utils/weather'
+
+import type { WeatherDataType, WeatherStateType } from '../../types/core'
+
+import logo from '../assets/logo.svg'
+
+import './styles.css'
+```
+
+### Naming Conventions
+
+- Components: PascalCase (`WeatherWidget`)
+- Functions: camelCase (`fetchWeather`)
+- Types/Interfaces: PascalCase with "Type" suffix (`WeatherDataType`, `RequestNameType`)
+- Files: PascalCase for components, camelCase for utilities
+
+## When Adding New Features
+
+- Create widget components in `src/components/`
+- Add core logic to `src/core/` if it's shared or complex
+- Use the event system for component communication
+- Follow existing styling patterns for consistency
+- Add proper TypeScript types
+- Handle loading and error states
+- Use animations for state transitions
+
+## When Modifying Existing Code
+
+- Maintain existing code style and patterns
+- Preserve animation behaviors unless explicitly changing them
+- Keep the dark theme aesthetic consistent
+- Ensure event listeners are properly cleaned up
+- Update types when changing data structures

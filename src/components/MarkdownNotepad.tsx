@@ -1,21 +1,16 @@
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import ReactMarkdown from 'react-markdown'
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { FileText, Eye, Edit, Save, History, Clock, RotateCcw, X } from 'lucide-react'
+import { Clock, Edit, Eye, FileText, History, RotateCcw, Save, X } from 'lucide-react'
 
-interface SavedVersion {
-  id: string
-  content: string
-  timestamp: Date
-  title: string
-}
+import type { SavedVersionType } from '../../types/components'
 
 export function MarkdownNotepad() {
   const [content, setContent] = useState('')
   const [isPreview, setIsPreview] = useState(false)
   const [isSaved, setIsSaved] = useState(true)
   const [showHistory, setShowHistory] = useState(false)
-  const [versions, setVersions] = useState<SavedVersion[]>([])
+  const [versions, setVersions] = useState<SavedVersionType[]>([])
   const [saveNotification, setSaveNotification] = useState(false)
 
   useEffect(() => {
@@ -49,7 +44,7 @@ export function MarkdownNotepad() {
   const manualSave = () => {
     const title = content.split('\n')[0].replace(/^#\s*/, '').trim() || 'Untitled Note'
 
-    const newVersion: SavedVersion = {
+    const newVersion: SavedVersionType = {
       id: Date.now().toString(),
       content: content,
       timestamp: new Date(),
@@ -64,7 +59,7 @@ export function MarkdownNotepad() {
     setTimeout(() => setSaveNotification(false), 2000)
   }
 
-  const restoreVersion = (version: SavedVersion) => {
+  const restoreVersion = (version: SavedVersionType) => {
     setContent(version.content)
     setShowHistory(false)
   }

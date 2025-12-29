@@ -1,5 +1,8 @@
-import emitter, { type TimeData } from './events'
-import { timezoneAPI } from '../api'
+import api from '../api'
+
+import emitter from './events'
+
+import type { TimeDataType } from '../../types/core'
 
 /**
  * Centralized time service that emits time updates every second.
@@ -48,7 +51,7 @@ class TimeCore {
 
         // Use BigDataCloud API to get timezone from coordinates (free, no API key required)
         try {
-          const data = await timezoneAPI('getTimezoneByLocation', {
+          const data = await api('getTimezoneByLocation', {
             latitude,
             longitude,
             localityLanguage: 'en',
@@ -133,7 +136,7 @@ class TimeCore {
 
     const dateString = `${weekday} ${month} ${day}`
 
-    const timeData: TimeData = {
+    const timeData: TimeDataType = {
       date: now,
       hours,
       minutes,

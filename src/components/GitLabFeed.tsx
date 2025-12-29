@@ -1,21 +1,13 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
-import { useState, useEffect } from 'react'
-import { GitMerge, CheckCircle, Clock, AlertCircle, User, GitBranch } from 'lucide-react'
+import { AlertCircle, CheckCircle, Clock, GitBranch, GitMerge, User } from 'lucide-react'
+
+import type { MergeRequestType } from '../../types/components'
+
 // To use GitLab API, import gitLabApi from '../api' and create an instance with your token
 
-interface MergeRequest {
-  id: number
-  title: string
-  author: string
-  status: 'open' | 'merged' | 'closed'
-  createdAt: string
-  sourceBranch: string
-  targetBranch: string
-  description: string
-}
-
 export function GitLabFeed() {
-  const [mergeRequests, setMergeRequests] = useState<MergeRequest[]>([])
+  const [mergeRequests, setMergeRequests] = useState<MergeRequestType[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -58,7 +50,7 @@ export function GitLabFeed() {
 
     // For now, use mock data
     setTimeout(() => {
-      const mockData: MergeRequest[] = [
+      const mockData: MergeRequestType[] = [
         {
           id: 1,
           title: 'Add user authentication module',

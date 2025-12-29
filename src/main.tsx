@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client'
 
 import App from './App'
 
-import './index.css'
-
 import core from './core'
+
+import './index.css'
 
 core.firebase.initialize()
 
