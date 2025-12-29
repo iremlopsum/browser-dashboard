@@ -174,6 +174,8 @@ export function EmailWidget() {
         },
       })
 
+      console.log('GIS client in EmailWidget:', client)
+
       setTokenClient(client)
       setInitialized(true)
     }
@@ -209,8 +211,16 @@ export function EmailWidget() {
   }
 
   const openInGmail = (threadId: string) => {
-    window.open(`https://mail.google.com/mail/u/0/#inbox/${threadId}`, '_blank', 'noopener,noreferrer')
+    // Gmail API doesn't expose which account index (u/0, u/1, etc.) corresponds to the authenticated account.
+    // The account index is Gmail's internal way of distinguishing multiple signed-in accounts in the browser.
+    // Since we're using OAuth with 'users/me', the authenticated account is the one that granted access.
+    // We default to u/0 (typically the primary account), but Gmail will redirect to the correct account
+    // if the user has multiple accounts signed in and u/0 isn't the right one.
+    // Alternatively, we can use a URL without the account index - Gmail will handle the routing.
+    window.open(`https://mail.google.com/mail/#inbox/${threadId}`, '_blank', 'noopener,noreferrer')
   }
+
+  console.log('emails in EmailWidget:', emails)
 
   return (
     <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-lg rounded-2xl p-6 border border-gray-700/50 shadow-2xl h-[400px] flex flex-col">

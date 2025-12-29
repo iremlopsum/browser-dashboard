@@ -26,26 +26,7 @@ export function MarkdownNotepad() {
     if (saved) {
       setContent(saved)
     } else {
-      setContent(`# Welcome to Markdown Notepad
-
-## Features
-- **Real-time preview**
-- *Persistent storage*
-- Easy formatting
-- **Version history**
-- Manual & auto-save
-
-### Quick Guide
-1. Write in markdown
-2. Toggle preview
-3. Auto-saves locally
-4. Manual save creates version snapshots
-
-\`\`\`javascript
-const hello = "world";
-\`\`\`
-
-> Your notes are automatically saved!`)
+      setContent('')
     }
 
     if (savedVersions) {
